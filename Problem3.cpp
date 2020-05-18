@@ -4,15 +4,16 @@
 
 using namespace std;
 
-const int INFECTED=10;
-const int DAYS=45;
-const double FIRST_MEAN=0.18;
-const double FIRST_STD=0.04;
-const double SECOND_MEAN=-0.24;
-const double SECOND_STD=0.04;
+const int dow_0=24600;
+const int DAYS=60;
+const int DAYS2=190
+const double FIRST_MEAN=0.005;
+const double FIRST_STD=0.015;
+const double SECOND_MEAN=0.01;
+const double SECOND_STD=0.013;
 const int NUMBER_POINTS=5;
 
-void first45(double *values, double size)
+void first60(double *values, double size)
 {
     default_random_engine firstgenerator;
     firstgenerator.seed(time(0));
@@ -26,7 +27,7 @@ void first45(double *values, double size)
     }
 }
 
-void second45(double *values, double size)
+void second190(double *values, double size)
 {
     default_random_engine secondgenerator;
     secondgenerator.seed(time(0));
@@ -171,16 +172,16 @@ int main()
     double beta;
     
     first[0]=INFECTED;
-    first45(first,DAYS);
-    cout<<"The daily number of infected people during the first 45 days is as followed: "<<endl;
+    first60(first,DAYS);
+    cout<<"The Dow's index's daily values is as followed: "<<endl;
     output_values(first,DAYS,1);
     
     cout<<endl;
     
     second[0]=first[DAYS-1];
-    second45(second,DAYS+1);
-    cout<<"The daily number of infected people during the second 45 days is as followed: "<<endl;
-    output_values(second,DAYS+1,45);
+    second190(second,DAYS+1);
+    cout<<"The Dow's index's daily values is as followed: "<<endl;
+    output_values(second,DAYS+1,190);
     
     cout<<endl;
     
@@ -198,11 +199,11 @@ int main()
     
     cout<<endl;
     
-    cout<<"Using the 5 specified days to interpolate the first 45 days, we get the equation: y(t)= "<<matrix_coef[0]<<"t^4 + ("<<matrix_coef[1]<<")t^3 + "<<matrix_coef[2]<<"t^2 + ("<<matrix_coef[3]<<")t + "<<matrix_coef[4]<<endl<<endl;
+    cout<<"Using the 5 specified points to interpolate the first 60 days, we get the equation: y(t)= "<<matrix_coef[0]<<"t^4 + ("<<matrix_coef[1]<<")t^3 + "<<matrix_coef[2]<<"t^2 + ("<<matrix_coef[3]<<")t + "<<matrix_coef[4]<<endl<<endl;
     
     alpha=alpha_func(second,DAYS);
     beta=beta_func(second,DAYS);
-    cout<<"Fitting the results of the second 45 days to an exponential function gives us: y(t)=" <<alpha<<" * exp("<<beta<<"t)"<<endl;
+    cout<<"Fitting the results of the second 190 days to an exponential function gives us: y(t)=" <<alpha<<" * exp("<<beta<<"t)"<<endl;
     
     return 0;
 }
